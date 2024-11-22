@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.antlr.v4.runtime.misc.NotNull;
+
 import java.util.List;
 
 @Entity
@@ -17,10 +19,8 @@ public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRol;
+
+    @Column(nullable = false, unique = true)
     private String nombreRol;
-
-    @OneToMany(mappedBy = "rol")
-    private List<Usuario> usuarios;
-
 
 }

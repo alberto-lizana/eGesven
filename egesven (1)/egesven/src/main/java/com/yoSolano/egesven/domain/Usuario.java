@@ -15,11 +15,21 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idUsuario;
+    private Long idUsuario;
 
+    @Column(nullable = false)
     private String nombreUsuario;
+
+    @Column(nullable = false, unique = true)
     private String celUsuario;
+
+    @Column(nullable = false)
     private String direccionUsuario;
+
+    @Column(nullable = false, unique = true)
+    private String emailUsuario;
+
+    @Column(nullable = false)
     private String contrasenaUsuario;
 
     @ManyToOne
