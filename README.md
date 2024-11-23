@@ -13,3 +13,4 @@ Thymeleaf
 Spring Data JPA 
 
 Posiblemente algunas no se llegen a ocupar como también otras se pueden ir agregando.
+
