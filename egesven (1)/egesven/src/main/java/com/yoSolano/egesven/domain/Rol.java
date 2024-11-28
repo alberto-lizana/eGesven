@@ -5,11 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.antlr.v4.runtime.misc.NotNull;
-
-import java.util.List;
 
 @Entity
+@Table(name = "rol")
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,10 +15,11 @@ import java.util.List;
 public class Rol {
 
     @Id
+    @Column(name = "idRol")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRol;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, name = "nombreRol")
     private String nombreRol;
 
 }

@@ -1,0 +1,89 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login-box {
+    background: #00000013;
+    padding: 40px 50px;
+    border-radius: 8px;
+    width: 380px;
+    text-align: center;
+    color: #ffffff;
+    border: solid 1px #2222;
+    box-shadow: inset 0 0 20px rgb(0, 0, 0);
+}
+
+
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+
+.create-account-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.create-account-link a {
+    color: #00c9ff;
+    text-decoration: none;
+}
+
+.create-account-link a:hover {
+    text-decoration: underline;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 16px;
+    color: #b0b0b0;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    background: #333333;
+    border: 1px solid #444444;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #00c9ff;
+    box-shadow: 0 0 550px rgba(0, 201, 255, 0.6);
+}
+
+/* Botón de inicio de sesión */
+.btn-submit {
+    background: #00c9ff;
+    color: #fff;
+    padding: 12px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.btn-submit:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 136, 204, 0.6);
+}
+
+

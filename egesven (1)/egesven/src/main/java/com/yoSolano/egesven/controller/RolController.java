@@ -2,7 +2,6 @@ package com.yoSolano.egesven.controller;
 
 import com.yoSolano.egesven.domain.Rol;
 import com.yoSolano.egesven.repository.RolRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +15,11 @@ import java.util.List;
 @RequestMapping("/api/roles")
 public class RolController {
 
-    @Autowired
     private RolRepository rolRepository;
 
+    public RolController (RolRepository rolRepository) {
+        this.rolRepository = rolRepository;
+    }
     @GetMapping
     public ResponseEntity<List<Rol>> getRoles() {
         try {

@@ -1,0 +1,48 @@
+<div th:fragment="navFragment" xmlns:th="http://www.w3.org/1999/xhtml">
+    <!-- Fragmento del Nav -->
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container-fluid">
+            <!-- Primer grid: 2 columnas -->
+            <div class="row w-100 d-flex align-items-center">
+                <!-- Columna izquierda (Logo, INICIO y PRODUCTOS) - ocupa 8 columnas -->
+                <div class="col-8">
+                    <div class="row">
+                        <!-- Logo -->
+                        <div class="col-auto">
+                            <a class="navbar-brand custom-logo" th:href="@{/}">
+                                <img src="/IMG/logo-egv-ingenieria.png" class="img-fluid" alt="Logo" style="max-height: 30px; width: 100px;">
+                            </a>
+                        </div>
+                        
+                        <!-- INICIO -->
+                        <div class="col-auto">
+                            <a class="nav-link custom-nav-link" th:href="@{/}">INICIO</a>
+                        </div>
+                        
+                        <!-- PRODUCTOS -->
+                        <div class="col-auto">
+                            <a class="nav-link custom-nav-link" th:href="@{/productos}">PRODUCTOS</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Columna derecha (INICIAR SESIÓN y CARRITO) - ocupa 4 columnas -->
+                <div class="col-4">
+                    <div class="row justify-content-end">
+                        <!-- INICIAR SESIÓN -->
+                        <div class="col-auto">
+                            <a class="nav-link custom-nav-link" th:href="@{/iniciarSesion}">INICIAR SESIÓN</a>
+                        </div>
+                        
+                        <!-- CARRITO -->
+                        <div class="col-auto">
+                            <a th:href="@{/carrito}" class="nav-link custom-nav-link">
+                                <i class="fa-solid fa-cart-shopping" style="font-size: 20px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
