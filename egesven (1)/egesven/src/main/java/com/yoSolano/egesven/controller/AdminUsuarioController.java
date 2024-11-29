@@ -43,6 +43,4 @@ public class AdminUsuarioController {
         usuarioRepository.deleteById(idUsuario);
         return ResponseEntity.noContent().build();
     }
-
-
 }

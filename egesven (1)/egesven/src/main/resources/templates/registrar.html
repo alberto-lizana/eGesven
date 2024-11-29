@@ -22,7 +22,7 @@
         <!-- Nombre de Usuario -->
         <div class="mb-3 form-group">
             <label for="nombreUsuario" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Ingresa tu nombre de usuario" th:field="*{nombreUsuario}" value="${usuario.nombreUsuario}" required>
+            <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Ingresa tu nombre de usuario" th:field="*{nombreUsuario}" required>
             <div th:if="${#fields.hasErrors('nombreUsuario')}" class="text-danger">
                 <span th:errors="*{nombreUsuario}">Error</span>
             </div>
@@ -31,7 +31,7 @@
         <!-- Celular de Usuario -->
         <div class="mb-3 form-group">
             <label for="celUsuario" class="form-label">Celular</label>
-            <input type="tel" class="form-control" id="celUsuario" name="celUsuario" placeholder="Ingresa tu número de celular" th:field="*{celUsuario}" value="${usuario.celUsuario}" required>
+            <input type="tel" class="form-control" id="celUsuario" name="celUsuario" placeholder="Ingresa tu número de celular" th:field="*{celUsuario}" required>
             <div th:if="${#fields.hasErrors('celUsuario')}" class="text-danger">
                 <span th:errors="*{celUsuario}">Error</span>
             </div>
@@ -40,7 +40,7 @@
         <!-- Dirección de Usuario -->
         <div class="mb-3 form-group">
             <label for="direccionUsuario" class="form-label">Dirección</label>
-            <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario" placeholder="Ingresa tu dirección" th:field="*{direccionUsuario}" value="${usuario.direccionUsuario}" required>
+            <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario" placeholder="Ingresa tu dirección" th:field="*{direccionUsuario}" required>
             <div th:if="${#fields.hasErrors('direccionUsuario')}" class="text-danger">
                 <span th:errors="*{direccionUsuario}">Error</span>
             </div>
@@ -49,7 +49,7 @@
         <!-- Correo Electrónico -->
         <div class="mb-3 form-group">
             <label for="emailUsuario" class="form-label">Email</label>
-            <input type="email" class="form-control" id="emailUsuario" name="emailUsuario" placeholder="Ingresa tu correo electrónico" th:field="*{emailUsuario}" value="${usuario.emailUsuario}" required>
+            <input type="email" class="form-control" id="emailUsuario" name="emailUsuario" placeholder="Ingresa tu correo electrónico" th:field="*{emailUsuario}" required>
             <div th:if="${#fields.hasErrors('emailUsuario')}" class="text-danger">
                 <span th:errors="*{emailUsuario}">Error</span>
             </div>
@@ -58,7 +58,7 @@
         <!-- Contraseña de Usuario -->
         <div class="mb-3 form-group">
             <label for="contrasenaUsuario" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="contrasenaUsuario" name="contrasenaUsuario" placeholder="Ingresa tu contraseña" th:field="*{contrasenaUsuario}" value="${usuario.contrasenaUsuario}" required>
+            <input type="password" class="form-control" id="contrasenaUsuario" name="contrasenaUsuario" placeholder="Ingresa tu contraseña" th:field="*{contrasenaUsuario}" required>
             <div th:if="${#fields.hasErrors('contrasenaUsuario')}" class="text-danger">
                 <span th:errors="*{contrasenaUsuario}">Error</span>
             </div>

@@ -22,16 +22,6 @@ public class RegistroController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping
-    public String inicio() {
-        return "inicio";
-    }
-
-    @GetMapping("/iniciarSesion")
-    public String iniciarSesion() {
-        return "iniciarSesion";
-    }
-
     @GetMapping("/registrar")
     public String mostrarFormulario(Model model) {
         model.addAttribute("usuario", new UsuarioDTO());
@@ -48,6 +38,6 @@ public class RegistroController {
 
         // Llama al servicio para crear el usuario
         usuarioService.crearUsuario(usuario);
-        return "iniciarSesion"; // Página de éxito (por ejemplo, redirige a la página de inicio de sesión)
+        return "redirect:/iniciarSesion"; // Página de éxito (por ejemplo, redirige a la página de inicio de sesión)
     }
 }

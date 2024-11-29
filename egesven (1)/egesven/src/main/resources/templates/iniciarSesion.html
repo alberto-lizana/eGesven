@@ -19,16 +19,26 @@
   <div class="login-container">
     <div class="login-box">
         <h2>Iniciar Sesión</h2>
-        <form action="#">
+
+        <!-- Mostrar el mensaje de error antes del formulario -->
+        <div th:if="${error}" class="alert alert-danger">
+            <span th:text="${error}"></span>
+        </div>
+
+        <form method="POST" th:object="${login}" th:action="@{/iniciarSesion}">
+
             <div class="input-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Ingresa tu email" required>
+                <label for="emailUsuario">Email</label>
+                <input type="email" id="emailUsuario" placeholder="Ingresa tu email"  th:field="*{emailUsuario}" required>
             </div>
+
             <div class="input-group">
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
+                <label for="contrasenaUsuario">Contraseña</label>
+                <input type="password" id="contrasenaUsuario" placeholder="Ingresa tu contraseña"  th:field="*{contrasenaUsuario}" required>
             </div>
+
             <button type="submit" class="btn-submit">Iniciar sesión</button>
+
         </form>
         <!-- Frase para crear cuenta -->
         <p class="create-account-link">
@@ -37,14 +47,9 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
           crossorigin="anonymous">
   </script>
-
-  <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans
-  http://www.springframework.org/schema/beans/spring-beans.xsd">
 </body>
 </html>
