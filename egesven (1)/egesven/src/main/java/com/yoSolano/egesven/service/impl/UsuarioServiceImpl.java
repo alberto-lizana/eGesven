@@ -21,6 +21,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario crearUsuario(UsuarioDTO usuarioDTO) {
+
         // Crear el nuevo usuario
         Usuario usuario = new Usuario();
 
