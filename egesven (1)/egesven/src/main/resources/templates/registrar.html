@@ -18,7 +18,7 @@
 
   <div class="container">
     <h2 class="my-4">Crear Usuario</h2>
-    <form method="POST" th:object="${usuario}" th:action="@{/registrar}" >
+    <form method="POST" th:object="${usuario}" th:action="@{/auth/registrar}" >
         <!-- Nombre de Usuario -->
         <div class="mb-3 form-group">
             <label for="nombreUsuario" class="form-label">Nombre</label>

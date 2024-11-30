@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
 
 @Controller
-@RequestMapping
+@RequestMapping("/auth")
 public class LoginController {
 
     private final LoginService loginService;
@@ -24,6 +25,7 @@ public class LoginController {
         this.loginService = loginService;
         this.usuarioRepository = usuarioRepository;
     }
+
     @GetMapping
     public String inicio() {
         return "inicio";
@@ -31,15 +33,14 @@ public class LoginController {
 
     @GetMapping("/iniciarSesion")
     public String mostrarFormularioLogin(Model model) {
-        model.addAttribute("login", new LoginDTO()); // Asegúrate de crear el objeto LoginDTO
-        return "iniciarSesion"; // Este es el nombre de tu vista (iniciarSesion.html)
+        model.addAttribute("login", new LoginDTO());
+        return "iniciarSesion";
     }
 
     @PostMapping("/iniciarSesion")
     public String procesarLogin(@ModelAttribute("login") LoginDTO loginDTO, Model model) {
-        // Lógica para procesar el login
         if (loginService.validarLogin(loginDTO)) {
-            return "redirect:/"; // Redirigir a una página de inicio si el login es exitoso
+            return "redirect:/auth";
         } else {
             model.addAttribute("error", "Credenciales inválidas");
             return "iniciarSesion";

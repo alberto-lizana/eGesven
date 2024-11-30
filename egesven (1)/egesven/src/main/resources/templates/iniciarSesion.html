@@ -25,7 +25,7 @@
             <span th:text="${error}"></span>
         </div>
 
-        <form method="POST" th:object="${login}" th:action="@{/iniciarSesion}">
+        <form method="POST" th:object="${login}" th:action="@{/auth/iniciarSesion}">
 
             <div class="input-group">
                 <label for="emailUsuario">Email</label>
@@ -42,7 +42,7 @@
         </form>
         <!-- Frase para crear cuenta -->
         <p class="create-account-link">
-            ¿No tienes una cuenta? <a th:href="@{/registrar}">Crea una aquí</a>
+            ¿No tienes una cuenta? <a th:href="@{/auth/registrar}">Crea una aquí</a>
         </p>
     </div>
   </div>
