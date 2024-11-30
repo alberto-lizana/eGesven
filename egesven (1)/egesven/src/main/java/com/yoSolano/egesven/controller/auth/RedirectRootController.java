@@ -1,4 +1,4 @@
-package com.yoSolano.egesven.controller;
+package com.yoSolano.egesven.controller.auth;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

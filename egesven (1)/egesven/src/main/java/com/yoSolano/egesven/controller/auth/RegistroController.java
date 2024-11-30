@@ -1,4 +1,4 @@
-package com.yoSolano.egesven.controller;
+package com.yoSolano.egesven.controller.auth;
 
 
 import com.yoSolano.egesven.DTO.UsuarioDTO;

@@ -1,4 +1,4 @@
-package com.yoSolano.egesven.controller;
+package com.yoSolano.egesven.controller.admin;
 
 import com.yoSolano.egesven.domain.Usuario;
 import com.yoSolano.egesven.repository.UsuarioRepository;
@@ -9,11 +9,11 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/usuarios")
-public class AdminUsuarioController {
+public class UsuarioController {
 
     private final UsuarioRepository usuarioRepository;
 
-    public AdminUsuarioController (UsuarioRepository usuarioRepository) {
+    public UsuarioController(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
 

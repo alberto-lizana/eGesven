@@ -1,4 +1,4 @@
-package com.yoSolano.egesven.controller;
+package com.yoSolano.egesven.controller.admin;
 
 import com.yoSolano.egesven.domain.Rol;
 import com.yoSolano.egesven.repository.RolRepository;
