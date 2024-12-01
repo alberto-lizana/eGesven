@@ -1,5 +1,6 @@
 package com.yoSolano.egesven.DTO;
 
+import com.yoSolano.egesven.domain.Rol;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +37,6 @@ public class UsuarioDTO {
     @NotNull(message = "La contraseña es obligatoria")
     private String contrasenaUsuario;
 
-    private Integer idRol;
+    private Rol rol;
 }
 

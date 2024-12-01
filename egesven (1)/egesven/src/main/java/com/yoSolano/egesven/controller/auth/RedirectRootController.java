@@ -8,6 +8,6 @@ public class RedirectRootController {
 
     @GetMapping("/")
     public String redirigirARutaAuth() {
-        return "redirect:/auth";
+        return "redirect:/auth/inicio";
     }
 }

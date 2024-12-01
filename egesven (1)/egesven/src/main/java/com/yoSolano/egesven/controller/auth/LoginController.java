@@ -22,8 +22,8 @@ public class LoginController {
         this.usuarioRepository = usuarioRepository;
     }
 
-    @GetMapping
-    public String inicio() {
+    @GetMapping("/inicio")
+    public String mostrarInicio() {
         return "inicio";
     }
 
@@ -36,7 +36,7 @@ public class LoginController {
     @PostMapping("/iniciarSesion")
     public String procesarLogin(@ModelAttribute("login") LoginDTO loginDTO, Model model) {
         if (loginService.validarLogin(loginDTO)) {
-            return "redirect:/auth";
+            return "redirect:/auth/inicio";
         } else {
             model.addAttribute("error", "Credenciales inválidas");
             return "iniciarSesion";

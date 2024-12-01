@@ -1,20 +1,36 @@
-package com.yoSolano.egesven.controller.admin;
+package com.yoSolano.egesven.controller.administrador;
 
+import com.yoSolano.egesven.domain.Rol;
 import com.yoSolano.egesven.domain.Usuario;
+import com.yoSolano.egesven.repository.RolRepository;
 import com.yoSolano.egesven.repository.UsuarioRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/usuarios")
-public class UsuarioController {
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/api/usuarios/")
+public class RestUsuarioController {
 
     private final UsuarioRepository usuarioRepository;
+    private final RolRepository rolRepository;
 
-    public UsuarioController(UsuarioRepository usuarioRepository) {
+    public RestUsuarioController(UsuarioRepository usuarioRepository,
+                                 RolRepository rolRepository) {
+
         this.usuarioRepository = usuarioRepository;
+        this.rolRepository = rolRepository;
+    }
+
+    @GetMapping("/{emailUsuario}")
+    public ResponseEntity<Usuario> getUsuarioByEmail(@PathVariable String emailUsuario) {
+        Optional<Usuario> usuario = usuarioRepository.findByEmailUsuario(emailUsuario);
+        return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @PostMapping

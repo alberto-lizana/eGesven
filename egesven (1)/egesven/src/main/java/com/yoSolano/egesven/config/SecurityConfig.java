@@ -18,15 +18,22 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Se crea un bean de BCryptPasswordEncoder
+        return new BCryptPasswordEncoder();
     }
 
+    @Bean
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/auth/**", "/styles/**",
+                                        "/img/**", "/templates/**",
+                                        "/fragments/**", "/",
+                                        "/api/**", "/admin/**",
+                                        "/admin/administrador", "/admin/administrador/**",
+                                        "/api/**", "/api/usuarios/**", "/js/**", "/login")
+                                .permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults())

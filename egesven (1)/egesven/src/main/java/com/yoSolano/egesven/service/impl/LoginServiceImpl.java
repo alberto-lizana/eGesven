@@ -8,6 +8,8 @@ import com.yoSolano.egesven.service.LoginService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class LoginServiceImpl implements LoginService {
 
@@ -23,10 +25,10 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public boolean validarLogin(LoginDTO loginDTO) {
-        Usuario usuario = usuarioRepository.findByEmailUsuario(loginDTO.getEmailUsuario());
+        Optional<Usuario> usuario = usuarioRepository.findByEmailUsuario(loginDTO.getEmailUsuario());
 
         // Verificar si el usuario existe y si las contraseñas coinciden
-        if (usuario != null && passwordEncoder.matches(loginDTO.getContrasenaUsuario(), usuario.getContrasenaUsuario())) {
+        if (usuario != null && passwordEncoder.matches(loginDTO.getContrasenaUsuario(), usuario.get().getContrasenaUsuario())) {
             return true;
         }
 

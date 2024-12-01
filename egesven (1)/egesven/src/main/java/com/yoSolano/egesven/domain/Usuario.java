@@ -33,7 +33,9 @@ public class Usuario {
     @Column(nullable = false, name = "contrasena_usuario")
     private String contrasenaUsuario;
 
-    @Column(name = "id_rol", nullable = false)
-    private Integer idRol;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_rol", referencedColumnName = "idRol", nullable = false)
+    private Rol rol;
+
 
 }

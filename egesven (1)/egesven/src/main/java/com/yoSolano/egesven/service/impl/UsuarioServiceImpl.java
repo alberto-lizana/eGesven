@@ -1,6 +1,7 @@
 package com.yoSolano.egesven.service.impl;
 
 import com.yoSolano.egesven.DTO.UsuarioDTO;
+import com.yoSolano.egesven.domain.Rol;
 import com.yoSolano.egesven.domain.Usuario;
 import com.yoSolano.egesven.repository.RolRepository;
 import com.yoSolano.egesven.repository.UsuarioRepository;
@@ -32,11 +33,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setEmailUsuario(usuarioDTO.getEmailUsuario());
         usuario.setContrasenaUsuario(usuarioDTO.getContrasenaUsuario());
 
-        // Asignar el rol CLIENTE (id 1) si no se proporciona un rol en el DTO
-        if (usuarioDTO.getIdRol() == null) {
-            usuario.setIdRol(1);  // Solo asignamos el id del rol
+        // Asignar el rol CLIENTE (id 1) por defecto ya que los roles estan guardados en la base de datos
+        if (usuarioDTO.getRol() == null) {
+            Rol rolUsuario = rolRepository.findById(1).orElseThrow(() ->
+                    new RuntimeException("Rol CLIENTE no encontrado"));
+            usuario.setRol(rolUsuario);
         } else {
-            usuario.setIdRol(usuarioDTO.getIdRol());
+            usuario.setRol(usuarioDTO.getRol());
         }
 
         return usuarioRepository.save(usuario);

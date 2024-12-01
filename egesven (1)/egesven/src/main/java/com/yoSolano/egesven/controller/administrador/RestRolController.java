@@ -1,4 +1,4 @@
-package com.yoSolano.egesven.controller.admin;
+package com.yoSolano.egesven.controller.administrador;
 
 import com.yoSolano.egesven.domain.Rol;
 import com.yoSolano.egesven.repository.RolRepository;
@@ -12,14 +12,16 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/roles")
-public class RolController {
+public class RestRolController {
 
     private RolRepository rolRepository;
 
-    public RolController (RolRepository rolRepository) {
+    public RestRolController(RolRepository rolRepository) {
         this.rolRepository = rolRepository;
     }
+
     @GetMapping
     public ResponseEntity<List<Rol>> getRoles() {
         try {
