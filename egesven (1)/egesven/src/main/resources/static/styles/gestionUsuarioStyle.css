@@ -1,15 +1,8 @@
-body {
-    background: #121212;
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-}
-
 .container {
-    max-width: 800px; /* Ajustamos un ancho cómodo */
+    max-width: 80%;
     background: #00000013;
     padding: 40px 50px;
     border-radius: 8px;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
     border: solid 1px rgba(34, 34, 34, 0.8);
     margin: 40px auto;
 }
@@ -20,10 +13,6 @@ h2, h4 {
     color: #fff;
     font-size: 24px;
     font-weight: 600;
-}
-
-.input-group {
-    margin-bottom: 20px;
 }
 
 .input-group .form-control {
@@ -48,6 +37,7 @@ h2, h4 {
     border: none;
     border-radius: 5px;
     font-size: 16px;
+    padding: 8px 15px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -55,10 +45,6 @@ h2, h4 {
 .input-group .btn:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 20px rgba(0, 201, 255, 0.6);
-}
-
-.input-group .btn:focus {
-    outline: none;
 }
 
 .table {
@@ -122,4 +108,68 @@ h2, h4 {
     text-align: center;
     font-size: 16px;
     margin-top: 20px;
+    color: red;
+}
+
+.formulario-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    z-index: 1050;
+}
+
+.formulario-modal label {
+    color: #00c9ff;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.formulario-modal .form-control {
+    background: #1c1c1c;
+    color: #ffffff;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.formulario-modal .form-control:focus {
+    outline: none;
+    border-color: #00c9ff;
+    box-shadow: inset 0 0 10px rgba(0, 201, 255, 0.6);
+}
+
+.formulario-modal .btn {
+    background: #00c9ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 10px;
+}
+
+.formulario-modal .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 201, 255, 0.6);
+}
+
+.s {
+    background: #090909;
+    box-shadow: inset 0 0 50px rgba(0, 201, 255, 0.3);
+    width: 80%;
 }

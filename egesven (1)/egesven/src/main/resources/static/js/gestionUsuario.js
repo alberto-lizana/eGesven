@@ -1,72 +1,207 @@
-document.getElementById('buscarUsuarioBtn').addEventListener('click', async () => {
-    const emailUsuario = document.getElementById('emailUsuario').value;
-    const usuarioTabla = document.getElementById('usuarioTabla');
-    const errorDiv = document.getElementById('error');
+document.addEventListener("DOMContentLoaded", async function() {
+    const buscarUsuarioBtn = document.getElementById('buscarUsuarioBtn');
+    const abrirFormularioBtn = document.getElementById('abrirFormularioBtn');
+    const cerrarFormularioBtn = document.getElementById('cerrarFormularioBtn');
+    const crearUsuarioForm = document.getElementById('crearUsuarioForm');
+    const crearUsuarioBtn = document.getElementById('crearUsuarioBtn');
 
-    // Limpiar cualquier mensaje de error previo
-    errorDiv.textContent = '';
-    usuarioTabla.innerHTML = '';  // Limpiar la tabla antes de mostrar resultados
+    // Buscar Usuario Por Email.
+    buscarUsuarioBtn.addEventListener('click', async () => {
+        const emailUsuario = document.getElementById('buscarPorEmailUsuario').value;
+        const errorDiv = document.getElementById('error');
+        const usuarioTabla = document.getElementById('usuarioTabla');
 
-    // Validar el formato del email
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailUsuario || !emailRegex.test(emailUsuario)) {
-        errorDiv.textContent = 'Por favor, ingrese un email válido.';
-        errorDiv.style.display = 'block';
-        return;
+        limpiarTabla(usuarioTabla);
+        limpiarError(errorDiv);
+
+        // Validar el formato del email
+        if (!validarEmail(emailUsuario)) {
+            mostrarError('Por favor, ingrese un email válido.', errorDiv);
+            return;
+        }
+
+        try {
+            const usuario = await obtenerUsuarioPorEmail(emailUsuario, errorDiv);
+            if (usuario) {
+                agregarUsuarioATabla(usuario, usuarioTabla);
+            }
+        } catch (error) {
+            console.error('Error al conectar al servidor:', error);
+            mostrarError('No se pudo conectar al servidor.', errorDiv);
+        }
+    });
+
+
+
+    abrirFormularioBtn.addEventListener('click', async () => {
+        document.getElementById('formularioCrearUsuario').style.display = 'block';
+        await cargarRoles();
+    });
+
+
+
+    cerrarFormularioBtn.addEventListener('click', () => {
+        document.getElementById('formularioCrearUsuario').style.display = 'none';
+        limpiarForm();
+    });
+
+
+
+    crearUsuarioBtn.addEventListener('click', async () => {
+          const nombreUsuario = document.getElementById('nombreUsuario').value;
+          const celUsuario = document.getElementById('celUsuario').value;
+          const direccionUsuario = document.getElementById('direccionUsuario').value;
+          const emailUsuario = document.getElementById('emailUsuario').value;
+          const contrasenaUsuario = document.getElementById('contrasenaUsuario').value;
+          const rolUsuario = document.getElementById('rolUsuario').value;
+
+          const errorDiv = document.getElementById('error');
+
+          // Validación básica
+          if (!validarEmail(emailUsuario)) {
+              mostrarError('Por favor, ingrese un email válido.', errorDiv);
+              return;
+          }
+
+          const usuarioData = {
+              nombreUsuario,
+              celUsuario,
+              direccionUsuario,
+              emailUsuario,
+              contrasenaUsuario,
+              rol: { idRol: rolUsuario }
+          };
+
+        try {
+            const response = await fetch('http://localhost:8080/api/usuarios', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(usuarioData)
+            });
+        if (response.status === 201) {
+              const nuevoUsuario = await response.json();
+              console.log('Usuario creado con éxito:', nuevoUsuario);
+              mostrarExito('Usuario creado con éxito');
+           } else {
+               const errorData = await response.json();
+               mostrarError(errorData.error || 'Hubo un error al crear el usuario.', errorDiv);
+           }
+        } catch (error) {
+            console.error('Error al conectar al servidor:', error);
+            mostrarError('No se pudo conectar al servidor.', errorDiv);
+        }
+    });
+
+    // Function obtener usuarioPorEmail.
+    async function obtenerUsuarioPorEmail(emailUsuario, errorDiv) {
+        try {
+            const response = await fetch(`http://localhost:8080/api/usuarios/${encodeURIComponent(emailUsuario)}`);
+            if (response.status === 200) {
+                return await response.json();
+            } else {
+                manejarErroresDeRespuesta(response.status, errorDiv);
+                return null;
+            }
+        } catch (error) {
+            mostrarError('No se pudo conectar al servidor.', errorDiv);
+            throw error;
+        }
     }
 
-    try {
-        // Solicitud al servidor con el email como parámetro
-        const response = await fetch(`http://localhost:8080/api/usuarios/${encodeURIComponent(emailUsuario)}`);
+    // Function para Cargar Los Roles de Crear Usuario
+    async function cargarRoles() {
+        try {
+            const response = await fetch(`http://localhost:8080/api/roles`);
+            if (!response.ok) {
+                throw new Error('Error en la respuesta de la API');
+            }
 
-        console.log('Status de la respuesta:', response.status);
+            const roles = await response.json();
+            const select = document.getElementById('rolUsuario');
 
-        if (response.status === 200) {
-            const usuario = await response.json();
-            console.log('Usuario encontrado:', usuario);
+            select.innerHTML = '';
 
-            // Crear una nueva fila con los datos del usuario
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${usuario.idUsuario}</td>
-                <td>${usuario.nombreUsuario}</td>
-                <td>${usuario.celUsuario}</td>
-                <td>${usuario.direccionUsuario}</td>
-                <td>${usuario.emailUsuario}</td>
-                <td>********</td> <!-- Enmascarando la contraseña -->
-                <td>${usuario.rolUsuario ? usuario.rolUsuario.nombreRol : 'N/A'}</td>
-                <td>
-                    <button class="btn btn-warning" onclick="modificarUsuario(${usuario.idUsuario})"><i class="fas fa-edit"></i> Modificar</button>
-                </td>
-                <td>
-                    <button class="btn btn-danger" onclick="eliminarUsuario(${usuario.idUsuario})"><i class="fas fa-trash"></i> Eliminar</button>
-                </td>
-            `;
-            usuarioTabla.appendChild(row);
-        } else if (response.status === 404) {
-            errorDiv.textContent = 'Usuario no encontrado.';
-            errorDiv.style.display = 'block';
-        } else if (response.status >= 500) {
-            errorDiv.textContent = 'Error en el servidor. Por favor, inténtelo más tarde.';
-            errorDiv.style.display = 'block';
-        } else {
-            errorDiv.textContent = 'Error al buscar el usuario.';
-            errorDiv.style.display = 'block';
+            roles.forEach((rol) => {
+                const option = document.createElement('option');
+                option.value = rol.idRol;
+                option.textContent = rol.nombreRol;
+                select.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error al obtener los roles:', error);
         }
-    } catch (error) {
-        console.error('Error al conectar al servidor:', error);
-        errorDiv.textContent = 'No se pudo conectar al servidor.';
+    }
+
+
+    function agregarUsuarioATabla(usuario, tabla) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${usuario.idUsuario}</td>
+            <td>${usuario.nombreUsuario}</td>
+            <td>${usuario.celUsuario}</td>
+            <td>${usuario.direccionUsuario}</td>
+            <td>${usuario.emailUsuario}</td>
+            <td>********</td> <!-- Enmascarando la contraseña -->
+            <td>${usuario.rol && usuario.rol.nombreRol ? usuario.rol.nombreRol : 'N/A'}</td>
+            <td>
+                <button class="btn btn-light" onclick="modificarUsuario(${usuario.idUsuario})"><i class="fas fa-edit"></i></button>
+            </td>
+            <td>
+                <button class="btn btn-light" onclick="eliminarUsuario(${usuario.idUsuario})"><i class="fas fa-trash"></i></button>
+            </td>
+        `;
+        tabla.appendChild(row);
+    }
+
+    // Funciones para modificar o eliminar usuarios (ejemplos)
+    function modificarUsuario(id) {
+        console.log('Modificar usuario con ID:', id);
+        // Lógica para modificar el usuario
+    }
+
+    function eliminarUsuario(id) {
+        console.log('Eliminar usuario con ID:', id);
+        // Lógica para eliminar el usuario
+    }
+
+    function limpiarTabla(tabla) {
+        tabla.innerHTML = '';
+    }
+
+    function limpiarError(errorDiv) {
+        errorDiv.textContent = '';
+        errorDiv.style.display = 'none';
+    }
+
+    function validarEmail(emailUsuario) {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailRegex.test(emailUsuario);
+    }
+
+    function manejarErroresDeRespuesta(status, errorDiv) {
+        if (status === 404) {
+            mostrarError('Usuario no encontrado.', errorDiv);
+        } else if (status >= 500) {
+            mostrarError('Error en el servidor. Por favor, inténtelo más tarde.', errorDiv);
+        } else {
+            mostrarError('Error al buscar el usuario.', errorDiv);
+        }
+    }
+
+    function mostrarError(mensaje, errorDiv) {
+        errorDiv.textContent = mensaje;
         errorDiv.style.display = 'block';
+    }
+
+    function mostrarExito(mensaje) {
+        const exitoDiv = document.getElementById('exito');
+        exitoDiv.textContent = mensaje;
+        exitoDiv.style.display = 'block';
+    }
+
+    function limpiarForm() {
+         document.getElementById('crearUsuarioForm').reset();
     }
 });
-
-// Funciones para modificar o eliminar usuarios (ejemplos)
-function modificarUsuario(id) {
-    console.log('Modificar usuario con ID:', id);
-    // Lógica para modificar el usuario
-}
-
-function eliminarUsuario(id) {
-    console.log('Eliminar usuario con ID:', id);
-    // Lógica para eliminar el usuario
-}

@@ -32,7 +32,8 @@ public class SecurityConfig {
                                         "/fragments/**", "/",
                                         "/api/**", "/admin/**",
                                         "/admin/administrador", "/admin/administrador/**",
-                                        "/api/**", "/api/usuarios/**", "/js/**", "/login")
+                                        "/api/**", "/api/usuarios/**", "/js/**", "/login",
+                                        "/api/roles")
                                 .permitAll()
                                 .anyRequest().authenticated()
                 )

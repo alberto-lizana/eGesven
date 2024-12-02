@@ -10,20 +10,60 @@
           crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="/styles/navStyle.css" rel="stylesheet">
-    <link href="/static/styles/gestionUsuarioStyle.css" rel="stylesheet">
+    <link href="/styles/gestionUsuarioStyle.css" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-5">
-    <h2>Lista de Usuarios</h2>
+<!-- Incluir el fragmento de la barra de navegación -->
+<div th:replace="~{fragments/navFragment :: navFragment}"></div>
 
-    <!-- Sección para buscar usuario por email -->
-    <div class="mb-4">
-        <h4>Buscar Usuario por Email</h4>
-        <div class="input-group mb-3">
-            <input type="email" id="emailUsuario" class="form-control" placeholder="Ingrese el email del usuario">
-            <button id="buscarUsuarioBtn" class="btn btn-primary" type="button">Buscar Usuario</button>
+<div class="container mt-5">
+    <div id="error" style="display: none;"></div>
+    <div class="container s">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4>Gestión Administrador</h4>
+            </div>
         </div>
+
+        <div class="row mb-3">
+            <!-- Buscar Usuario por Email (input y botón) -->
+            <div class="col-12 col-md-10">
+                <input type="email" id="buscarPorEmailUsuario" class="form-control" placeholder="Buscar Usuario por Email">
+            </div>
+            <div class="col-12 col-md-2">
+                <button id="buscarUsuarioBtn" class="btn btn-dark w-100" type="button">Buscar Usuario</button>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <!-- Crear Usuario (solo botón) -->
+            <div class="col-12 col-md-6">
+                <button id="abrirFormularioBtn" class="btn btn-dark w-100" type="button">Crear Usuario</button>
+            </div>
+
+            <!-- Crear Perfil (solo botón) -->
+            <div class="col-12 col-md-6">
+                <button id="crearPerfilBtn" class="btn btn-dark w-100" type="button">Crear Perfil</button>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-12 col-md-4">
+                <button id="asignarRolBtn" class="btn btn-dark w-100" type="button">Asignar Perfil</button>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <button id="todosLosUsuariosBtn" class="btn btn-dark w-100" type="button">Todos Los Usuarios</button>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <button id="todosLosRolesBtn" class="btn btn-dark w-100" type="button">Todos Los Roles</button>
+            </div>
+        </div>
+
     </div>
+
+
 
     <!-- Tabla de usuarios -->
     <table class="table table-bordered table-striped">
@@ -38,29 +78,67 @@
             <th>Rol</th>
             <th>Modificar</th>
             <th>Eliminar</th>
+
         </tr>
         </thead>
+
+        <!-- Formulario oculto (en un contenedor de ventana emergente) -->
+        <div id="formularioCrearUsuario" class="formulario-modal">
+            <form id="crearUsuarioForm">
+                <!-- Nombre de Usuario -->
+                <div class="mb-3 form-group">
+                    <label for="nombreUsuario" class="label">Nombre</label>
+                    <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Ingresa tu nombre de usuario" required>
+                </div>
+
+                <!-- Celular de Usuario -->
+                <div class="mb-3 form-group">
+                    <label for="celUsuario" class="label">Celular</label>
+                    <input type="tel" class="form-control" id="celUsuario" name="celUsuario" placeholder="Ingresa tu número de celular" required>
+                </div>
+
+                <!-- Dirección de Usuario -->
+                <div class="mb-3 form-group">
+                    <label for="direccionUsuario" class="label">Dirección</label>
+                    <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario" placeholder="Ingresa tu dirección" required>
+                </div>
+
+                <!-- Correo Electrónico -->
+                <div class="mb-3 form-group">
+                    <label for="emailUsuario" class="label">Email</label>
+                    <input type="email" class="form-control" id="emailUsuario" name="emailUsuario" placeholder="Ingresa tu correo electrónico" required>
+                </div>
+
+                <!-- Contraseña de Usuario -->
+                <div class="mb-3 form-group">
+                    <label for="contrasenaUsuario" class="label">Contraseña</label>
+                    <input type="password" class="form-control" id="contrasenaUsuario" name="contrasenaUsuario" placeholder="Ingresa tu contraseña" required>
+                </div>
+
+                <!-- Rol -->
+                <div class="mb-3 form-group">
+                    <label for="rolUsuario" class="label">Rol</label>
+                    <select id="rolUsuario" name="rolUsuario" class="form-control">
+                    </select>
+                </div>
+
+                <!-- Botón de Enviar -->
+                <div class="form-group" >
+                    <button type="submit" class="btn btn-dark" id="crearUsuarioBtn">Crear Usuario</button>
+                </div>
+
+                <!-- Botón de Cerrar -->
+                <div class="form-group">
+                    <button type="button" class="btn btn-dark" id="cerrarFormularioBtn">Cerrar</button>
+                </div>
+            </form>
+        </div>
+
         <tbody id="usuarioTabla">
         <!-- Iteración sobre los usuarios usando Thymeleaf -->
-        <tr th:each="usuario : ${usuarios}">
-            <td th:text="${usuario.idUsuario}"></td>
-            <td th:text="${usuario.nombreUsuario}"></td>
-            <td th:text="${usuario.celUsuario}"></td>
-            <td th:text="${usuario.direccionUsuario}"></td>
-            <td th:text="${usuario.emailUsuario}"></td>
-            <td th:text="${usuario.contrasenaUsuario}"></td>
-            <td th:text="${usuario.rolUsuario}"></td>
-            <td>
-                <a href="#" class="btn btn-warning"><i class="fas fa-edit"></i> Modificar</a>
-            </td>
-            <td>
-                <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i> Eliminar</a>
-            </td>
-        </tr>
         </tbody>
     </table>
 </div>
-<div id="error" style="color: red;"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
