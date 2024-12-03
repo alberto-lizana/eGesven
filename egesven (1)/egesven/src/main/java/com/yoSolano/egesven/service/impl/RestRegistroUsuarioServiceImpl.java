@@ -3,6 +3,7 @@ package com.yoSolano.egesven.service.impl;
 import com.yoSolano.egesven.DTO.UsuarioDTO;
 import com.yoSolano.egesven.domain.Rol;
 import com.yoSolano.egesven.domain.Usuario;
+import com.yoSolano.egesven.repository.RolRepository;
 import com.yoSolano.egesven.repository.UsuarioRepository;
 import com.yoSolano.egesven.service.RestRegistroUsuarioService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,11 +14,14 @@ public class RestRegistroUsuarioServiceImpl implements RestRegistroUsuarioServic
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RolRepository rolRepository;
 
     public RestRegistroUsuarioServiceImpl(UsuarioRepository usuarioRepository,
-                                          PasswordEncoder passwordEncoder) {
+                                          PasswordEncoder passwordEncoder,
+                                          RolRepository rolRepository) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
+        this.rolRepository = rolRepository;
     }
 
     @Override
@@ -31,9 +35,9 @@ public class RestRegistroUsuarioServiceImpl implements RestRegistroUsuarioServic
         String contrasenaEncriptada = passwordEncoder.encode(usuarioDTO.getContrasenaUsuario());
         usuario.setContrasenaUsuario(contrasenaEncriptada);
 
-        // Obtener el idRol desde el objeto Rol en el DTO
-        Rol rol = new Rol();
-        rol.setIdRol(usuarioDTO.getRol().getIdRol());
+        Rol rol = rolRepository.findById(usuarioDTO.getRol().getIdRol())
+                .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+        usuario.setRol(rol);
 
         usuario.setRol(rol);
 

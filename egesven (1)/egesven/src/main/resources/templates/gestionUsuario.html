@@ -45,7 +45,7 @@
 
                 <!-- Crear Rol -->
                 <div class="col-12 col-md-6">
-                    <button id="crearRolBtn" class="btn btn-dark w-100" type="button">Crear Rol</button>
+                    <button id="abrirFormularioCrearRolBtn" class="btn btn-dark w-100" type="button">Crear Rol</button>
                 </div>
             </div>
 
@@ -110,7 +110,7 @@
     </section>
 
 
-    <!-- Formulario oculto (en un contenedor de ventana emergente) -->
+    <!-- Formulario oculto Crear Usuario -->
     <section>
             <div id="formularioCrearUsuario" class="formulario-modal">
                 <form id="crearUsuarioForm">
@@ -164,12 +164,39 @@
             </div>
         </section>
 
+    <!-- Formulario Oculto Crear Rol -->
+    <section>
+
+            <div id="formularioCrearRol" class="formulario-modal">
+                <form id="crearRolForm">
+                    <!-- Nombre de Usuario -->
+                    <div class="mb-3 form-group">
+                        <label for="nombreRol" class="label">Nombre Rol</label>
+                        <input type="text" class="form-control" id="nombreRol" name="nombreRol" placeholder="Ingresa el nombre del Rol" required>
+                    </div>
+
+                    <!-- Botón de Enviar -->
+                    <div class="form-group" >
+                        <button type="button" class="btn btn-dark" id="crearRolBtn">Crear rol</button>
+                    </div>
+
+                    <!-- Botón de Cerrar -->
+                    <div class="form-group">
+                        <button type="button" class="btn btn-dark" id="cerrarFormularioRolBtn">Cerrar</button>
+                    </div>
+
+                </form>
+
+    </section>
+
     <!-- Botón "Cargar más" -->
     <section>
             <div class="d-flex justify-content-center mt-3">
                 <button id="cargarMasBtn" class="btn btn-dark rounded-pill" style="display: none;">Cargar más</button>
             </div>
         </section>
+
+
 
 </div>
 

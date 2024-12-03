@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     const tablaUsuario = document.getElementById('tablaUsuario');
     const tablaRol = document.getElementById('tablaRol')
     const todosLosRolesBtn = document.getElementById('todosLosRolesBtn')
+    const abrirFormulariocrearRolBtn = document.getElementById('abrirFormularioCrearRolBtn')
 
 
     const errorDiv = document.getElementById('error');
