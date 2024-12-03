@@ -17,127 +17,160 @@
 <div th:replace="~{fragments/navFragment :: navFragment}"></div>
 
 <div class="container mt-5">
-    <div id="error" style="display: none;"></div>
-    <div class="container s">
-        <div class="row mb-4">
-            <div class="col-12">
-                <h4>Gestión Administrador</h4>
+    <!-- Controlador Gestion -->
+    <section>
+        <div id="error" style="display: none;"></div>
+        <div class="container s">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h4>Gestión Usuarios</h4>
+                </div>
             </div>
+
+            <div class="row mb-3">
+                <!-- Buscar Usuario por Email -->
+                <div class="col-12 col-md-10">
+                    <input type="email" id="buscarPorEmailUsuario" class="form-control" placeholder="Buscar Usuario por Email">
+                </div>
+                <div class="col-12 col-md-2">
+                    <button id="buscarUsuarioBtn" class="btn btn-dark w-100" type="button">Buscar Usuario</button>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <!-- Crear Usuario-->
+                <div class="col-12 col-md-6">
+                    <button id="abrirFormularioBtn" class="btn btn-dark w-100" type="button">Crear Usuario</button>
+                </div>
+
+                <!-- Crear Rol -->
+                <div class="col-12 col-md-6">
+                    <button id="crearRolBtn" class="btn btn-dark w-100" type="button">Crear Rol</button>
+                </div>
+            </div>
+
+
+            <div class="row mb-3">
+                <!-- Todos Los Usuarios -->
+                <div class="col-12 col-md-6">
+                    <button id="todosLosUsuariosBtn" class="btn btn-dark w-100" type="button">Todos Los Usuarios</button>
+                </div>
+
+                <!-- Todos Los Roles -->
+                <div class="col-12 col-md-6">
+                    <button id="todosLosRolesBtn" class="btn btn-dark w-100" type="button">Todos Los Roles</button>
+                </div>
+            </div>
+
         </div>
-
-        <div class="row mb-3">
-            <!-- Buscar Usuario por Email (input y botón) -->
-            <div class="col-12 col-md-10">
-                <input type="email" id="buscarPorEmailUsuario" class="form-control" placeholder="Buscar Usuario por Email">
-            </div>
-            <div class="col-12 col-md-2">
-                <button id="buscarUsuarioBtn" class="btn btn-dark w-100" type="button">Buscar Usuario</button>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <!-- Crear Usuario (solo botón) -->
-            <div class="col-12 col-md-6">
-                <button id="abrirFormularioBtn" class="btn btn-dark w-100" type="button">Crear Usuario</button>
-            </div>
-
-            <!-- Crear Perfil (solo botón) -->
-            <div class="col-12 col-md-6">
-                <button id="crearPerfilBtn" class="btn btn-dark w-100" type="button">Crear Perfil</button>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-12 col-md-4">
-                <button id="asignarRolBtn" class="btn btn-dark w-100" type="button">Asignar Perfil</button>
-            </div>
-
-            <div class="col-12 col-md-4">
-                <button id="todosLosUsuariosBtn" class="btn btn-dark w-100" type="button">Todos Los Usuarios</button>
-            </div>
-
-            <div class="col-12 col-md-4">
-                <button id="todosLosRolesBtn" class="btn btn-dark w-100" type="button">Todos Los Roles</button>
-            </div>
-        </div>
-
-    </div>
-
-
+    </section>
 
     <!-- Tabla de usuarios -->
-    <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>Referencia</th>
-            <th>Nombre</th>
-            <th>Número</th>
-            <th>Dirección</th>
-            <th>Email</th>
-            <th>Contraseña</th>
-            <th>Rol</th>
-            <th>Modificar</th>
-            <th>Eliminar</th>
+    <section>
+        <table id="tablaUsuario" class="table table-bordered table-striped" style="display: none">
+            <thead>
+            <tr>
+                <th>Referencia</th>
+                <th>Nombre</th>
+                <th>Número</th>
+                <th>Dirección</th>
+                <th>Email</th>
+                <th>Contraseña</th>
+                <th>Rol</th>
+                <th>Modificar</th>
+                <th>Eliminar</th>
 
-        </tr>
-        </thead>
+            </tr>
+            </thead>
 
-        <!-- Formulario oculto (en un contenedor de ventana emergente) -->
-        <div id="formularioCrearUsuario" class="formulario-modal">
-            <form id="crearUsuarioForm">
-                <!-- Nombre de Usuario -->
-                <div class="mb-3 form-group">
-                    <label for="nombreUsuario" class="label">Nombre</label>
-                    <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Ingresa tu nombre de usuario" required>
-                </div>
+            <tbody id="usuarioTabla">
 
-                <!-- Celular de Usuario -->
-                <div class="mb-3 form-group">
-                    <label for="celUsuario" class="label">Celular</label>
-                    <input type="tel" class="form-control" id="celUsuario" name="celUsuario" placeholder="Ingresa tu número de celular" required>
-                </div>
+            </tbody>
+        </table>
+    </section>
 
-                <!-- Dirección de Usuario -->
-                <div class="mb-3 form-group">
-                    <label for="direccionUsuario" class="label">Dirección</label>
-                    <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario" placeholder="Ingresa tu dirección" required>
-                </div>
+    <!-- Tabla de rol -->
+    <section>
+        <table id="tablaRol" class="table table-bordered table-striped" style="display: none">
+            <thead>
+            <tr>
+                <th>Referencia</th>
+                <th>Nombre</th>
+                <th>Asignar</th>
+                <th>Modificar</th>
+                <th>Eliminar</th>
 
-                <!-- Correo Electrónico -->
-                <div class="mb-3 form-group">
-                    <label for="emailUsuario" class="label">Email</label>
-                    <input type="email" class="form-control" id="emailUsuario" name="emailUsuario" placeholder="Ingresa tu correo electrónico" required>
-                </div>
+            </tr>
+            </thead>
 
-                <!-- Contraseña de Usuario -->
-                <div class="mb-3 form-group">
-                    <label for="contrasenaUsuario" class="label">Contraseña</label>
-                    <input type="password" class="form-control" id="contrasenaUsuario" name="contrasenaUsuario" placeholder="Ingresa tu contraseña" required>
-                </div>
+            <tbody id="rolTabla">
 
-                <!-- Rol -->
-                <div class="mb-3 form-group">
-                    <label for="rolUsuario" class="label">Rol</label>
-                    <select id="rolUsuario" name="rolUsuario" class="form-control">
-                    </select>
-                </div>
+            </tbody>
+        </table>
+    </section>
 
-                <!-- Botón de Enviar -->
-                <div class="form-group" >
-                    <button type="submit" class="btn btn-dark" id="crearUsuarioBtn">Crear Usuario</button>
-                </div>
 
-                <!-- Botón de Cerrar -->
-                <div class="form-group">
-                    <button type="button" class="btn btn-dark" id="cerrarFormularioBtn">Cerrar</button>
-                </div>
-            </form>
-        </div>
+    <!-- Formulario oculto (en un contenedor de ventana emergente) -->
+    <section>
+            <div id="formularioCrearUsuario" class="formulario-modal">
+                <form id="crearUsuarioForm">
+                    <!-- Nombre de Usuario -->
+                    <div class="mb-3 form-group">
+                        <label for="nombreUsuario" class="label">Nombre</label>
+                        <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Ingresa tu nombre de usuario" required>
+                    </div>
 
-        <tbody id="usuarioTabla">
-        <!-- Iteración sobre los usuarios usando Thymeleaf -->
-        </tbody>
-    </table>
+                    <!-- Celular de Usuario -->
+                    <div class="mb-3 form-group">
+                        <label for="celUsuario" class="label">Celular</label>
+                        <input type="tel" class="form-control" id="celUsuario" name="celUsuario" placeholder="Ingresa tu número de celular" required>
+                    </div>
+
+                    <!-- Dirección de Usuario -->
+                    <div class="mb-3 form-group">
+                        <label for="direccionUsuario" class="label">Dirección</label>
+                        <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario" placeholder="Ingresa tu dirección" required>
+                    </div>
+
+                    <!-- Correo Electrónico -->
+                    <div class="mb-3 form-group">
+                        <label for="emailUsuario" class="label">Email</label>
+                        <input type="email" class="form-control" id="emailUsuario" name="emailUsuario" placeholder="Ingresa tu correo electrónico" required>
+                    </div>
+
+                    <!-- Contraseña de Usuario -->
+                    <div class="mb-3 form-group">
+                        <label for="contrasenaUsuario" class="label">Contraseña</label>
+                        <input type="password" class="form-control" id="contrasenaUsuario" name="contrasenaUsuario" placeholder="Ingresa tu contraseña" required>
+                    </div>
+
+                    <!-- Rol -->
+                    <div class="mb-3 form-group">
+                        <label for="rolUsuario" class="label">Rol</label>
+                        <select id="rolUsuario" name="rolUsuario" class="form-control">
+                        </select>
+                    </div>
+
+                    <!-- Botón de Enviar -->
+                    <div class="form-group" >
+                        <button type="submit" class="btn btn-dark" id="crearUsuarioBtn">Crear Usuario</button>
+                    </div>
+
+                    <!-- Botón de Cerrar -->
+                    <div class="form-group">
+                        <button type="button" class="btn btn-dark" id="cerrarFormularioBtn">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    <!-- Botón "Cargar más" -->
+    <section>
+            <div class="d-flex justify-content-center mt-3">
+                <button id="cargarMasBtn" class="btn btn-dark rounded-pill" style="display: none;">Cargar más</button>
+            </div>
+        </section>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
