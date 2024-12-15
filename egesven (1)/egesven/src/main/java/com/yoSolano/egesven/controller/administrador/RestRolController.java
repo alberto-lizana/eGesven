@@ -43,11 +43,24 @@ public class RestRolController {
     }
 
     @PostMapping
-    public ResponseEntity<Rol> createRol(@RequestBody Rol rol) {
-        Rol nuevoRol = rolRepository.save(rol);
-        URI location = URI.create(String.format("/roles/%d", nuevoRol.getIdRol()));
-        return ResponseEntity.created(location).body(nuevoRol);
+    public ResponseEntity<?> createRol(@RequestBody String nombreRol) {
+        if (nombreRol == null || nombreRol.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("El nombre del rol no puede estar vacío.");
+        }
+
+        boolean exists = rolRepository.existsByNombreRol(nombreRol);
+        if (exists) {
+            return ResponseEntity.badRequest().body("El rol ya existe.");
+        }
+
+        Rol nuevoRol = new Rol();
+        nuevoRol.setNombreRol(nombreRol);
+        Rol savedRol = rolRepository.save(nuevoRol);
+
+        URI location = URI.create(String.format("/api/roles/%d", savedRol.getIdRol()));
+        return ResponseEntity.created(location).body(savedRol);
     }
+
 
     @PutMapping("/{idRol}")
     public ResponseEntity<Rol> updateRol(@PathVariable Integer idRol, @RequestBody Rol rol) {

@@ -19,13 +19,20 @@
 <div class="container mt-5">
     <!-- Controlador Gestion -->
     <section>
-        <div id="error" style="display: none;"></div>
+        <!-- Mensaje Principal -->
+        <div id="mensajePrincipal" style="display: none;"></div>
+
         <div class="container s">
             <div class="row mb-4">
                 <div class="col-12">
                     <h4>Gestión Usuarios</h4>
                 </div>
             </div>
+
+            <div>
+
+            </div>
+
 
             <div class="row mb-3">
                 <!-- Buscar Usuario por Email -->
@@ -83,7 +90,7 @@
             </tr>
             </thead>
 
-            <tbody id="usuarioTabla">
+            <tbody id="usuarioTablaTBody">
 
             </tbody>
         </table>
@@ -103,7 +110,7 @@
             </tr>
             </thead>
 
-            <tbody id="rolTabla">
+            <tbody id="rolTablaTBody">
 
             </tbody>
         </table>
@@ -113,6 +120,10 @@
     <!-- Formulario oculto Crear Usuario -->
     <section>
             <div id="formularioCrearUsuario" class="formulario-modal">
+
+                <!-- Mensaje Crear Usuario -->
+                <div id="mensajeCrearUsuario" style="display: none; "></div>
+
                 <form id="crearUsuarioForm">
                     <!-- Nombre de Usuario -->
                     <div class="mb-3 form-group">
@@ -166,8 +177,11 @@
 
     <!-- Formulario Oculto Crear Rol -->
     <section>
+            <div id="formularioCrearRol" class="formulario-modal-s">
 
-            <div id="formularioCrearRol" class="formulario-modal">
+                <!-- Mensaje Crear Rol -->
+                <div id="mensajeCrearRol" style="display: none;"></div>
+
                 <form id="crearRolForm">
                     <!-- Nombre de Usuario -->
                     <div class="mb-3 form-group">
@@ -186,7 +200,33 @@
                     </div>
 
                 </form>
+            </div>
+    </section>
 
+    <!-- Formulario oculto Modificar Rol -->
+    <section>
+        <div id="formularioModificarRol" class="formulario-modal">
+
+            <form id="modificarRolForm">
+
+                <!-- Modificar Nombre Rol-->
+                <div class="mb-3 form-group">
+                    <label for="nombreRol" class="label">Nuevo Nombre</label>
+                    <input type="text" class="form-control" id="modificarNombreRol" name="modificarNombreRol" placeholder="Ingresar nuevo nombre del rol" required>
+                </div>
+
+
+                <!-- Botón de Enviar -->
+                <div class="form-group" >
+                    <button type="submit" class="btn btn-dark" id="ModificarRolBtn">Guardar Cambios</button>
+                </div>
+
+                <!-- Botón de Cerrar -->
+                <div class="form-group">
+                    <button type="button" class="btn btn-dark" id="cerrarFormularioModificarBtn">Cerrar</button>
+                </div>
+            </form>
+        </div>
     </section>
 
     <!-- Botón "Cargar más" -->

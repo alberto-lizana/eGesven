@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.data.domain.PageRequest;
 
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -68,17 +69,26 @@ public class RestUsuarioController {
 
     @PostMapping
     public ResponseEntity<?> createUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO, UriComponentsBuilder uriComponentsBuilder) {
+
+        Map<String, String> errors = new HashMap<>();
+
         if (usuarioRepository.existsByEmailUsuario(usuarioDTO.getEmailUsuario())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Email ya registrado"));
+            errors.put("emailUsuario", "Email ya registrado");
         }
 
         if (usuarioRepository.existsByCelUsuario(usuarioDTO.getCelUsuario())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "Número ya registrado"));
+            errors.put("celUsuario", "Número ya registrado");
+        }
+
+        if (!errors.isEmpty()) {
+            return ResponseEntity.badRequest().body(errors);
         }
 
         Usuario nuevoUsuario = restRegistroUsuarioService.crearUsuario(usuarioDTO);
 
-        URI location = uriComponentsBuilder.path("/api/usuarios/{id}").buildAndExpand(nuevoUsuario.getIdUsuario()).toUri();
+        URI location = uriComponentsBuilder.path("/api/usuarios/{id}")
+                .buildAndExpand(nuevoUsuario.getIdUsuario())
+                .toUri();
 
         return ResponseEntity.created(location).body(nuevoUsuario);
     }

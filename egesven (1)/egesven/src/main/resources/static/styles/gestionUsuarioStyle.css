@@ -104,11 +104,10 @@ h2, h4 {
     background-color: #ff6666;
 }
 
-#error {
+#mensajePrincial, #mensajeCrearUsuario, #mensajeCrearRol{
     text-align: center;
     font-size: 16px;
     margin-top: 20px;
-    color: red;
 }
 
 .formulario-modal {
@@ -174,3 +173,59 @@ h2, h4 {
     width: 80%;
 }
 
+.formulario-modal-s {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    z-index: 1050;
+}
+
+.formulario-modal-s label {
+    color: #00c9ff;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.formulario-modal-s .form-control {
+    background: #1c1c1c;
+    color: #ffffff;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.formulario-modal-s .form-control:focus {
+    outline: none;
+    border-color: #00c9ff;
+    box-shadow: inset 0 0 10px rgba(0, 201, 255, 0.6);
+}
+
+.formulario-modal-s .btn {
+    background: #00c9ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 10px;
+}
+
+.formulario-modal-s .btn:hover {
+    transform: scale(1.05);
+    box-shadow: inset 0 0 50px rgba(0, 200, 255, 0.151);
+}
